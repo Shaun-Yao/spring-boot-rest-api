@@ -1,0 +1,8 @@
+dependencies {
+	compile project(':health-care-model')	
+	compile project(':health-care-util')	
+	
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    //compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.apache.commons:commons-lang3:${commonsLang3Version}")
+}

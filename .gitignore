@@ -1,0 +1,7 @@
+#加上'**'才会对子项目起作用
+**/build/
+**/.settings/
+**/bin/
+**/.gradle/
+.classpath
+.project

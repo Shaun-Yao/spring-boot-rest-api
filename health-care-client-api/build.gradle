@@ -1,0 +1,27 @@
+
+apply plugin: 'war'
+
+war {
+    baseName = 'health-care-client-api'
+}
+
+dependencies {
+
+	compile project(':health-care-model')
+	compile project(':health-care-service')
+	compile project(':health-care-util')
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-data-redis")
+    compile("org.springframework.boot:spring-boot-devtools")
+
+	compile("io.springfox:springfox-swagger2:${springfoxVersion}")
+	compile("io.springfox:springfox-swagger-ui:${springfoxVersion}")
+
+    compile("mysql:mysql-connector-java:${mysqlVersion}")
+    compile("commons-fileupload:commons-fileupload:${commonsFileUploadVersion}")
+
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+
+}

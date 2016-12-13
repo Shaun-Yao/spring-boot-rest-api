@@ -1,0 +1,1 @@
+include 'health-care-business-api','health-care-client-api','health-care-model','health-care-service','health-care-util','health-care-web','health-care-wechat'

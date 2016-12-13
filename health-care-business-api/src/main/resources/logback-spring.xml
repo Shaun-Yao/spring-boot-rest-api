@@ -33,7 +33,7 @@
 	        </encoder> 
 	        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 	            <fileNamePattern>
-	            	${catalina.home}/logs/loan-api/business/debug.%d{yyyy-MM-dd}.log
+	            	${catalina.home}/logs/health/business-api/debug.%d{yyyy-MM-dd}.log
 	            </fileNamePattern>
 	            <maxHistory>30</maxHistory>
 	        </rollingPolicy>

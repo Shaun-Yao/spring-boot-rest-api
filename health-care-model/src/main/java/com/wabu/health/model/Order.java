@@ -24,7 +24,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "LOAN_ORDER")
+@Table(name = "HEALTH_ORDER")
 public class Order extends BaseEntity {
 	
 	

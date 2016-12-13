@@ -43,7 +43,7 @@ public class Order extends BaseEntity {
 	
 	/*@JsonIgnore
 	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Data data;*/// 贷款人资料aa
+    private Data data;*/// 贷款人资料
 	
 	
 	@Enumerated(EnumType.ORDINAL)

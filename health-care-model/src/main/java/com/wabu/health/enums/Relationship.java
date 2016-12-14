@@ -7,7 +7,7 @@ package com.wabu.health.enums;
  */
 public enum Relationship {
 	
-	男(0), 女(1);
+	自己(0), 爸爸(1), 妈妈(2), 亲戚(3), 朋友(4), 孩子(5), 其它(6);
 
 	private final int code;
 
@@ -18,10 +18,20 @@ public enum Relationship {
 	public static Relationship fromCode(int code) {
 		switch (code) {
 		case 0:
-			return 男;
+			return 自己;
+		case 1:
+			return 爸爸;
+		case 2:
+			return 妈妈;
+		case 3:
+			return 亲戚;
+		case 4:
+			return 朋友;
+		case 5:
+			return 孩子;
 
 		default:
-			return 女;
+			return 其它;
 		}
 	}
 

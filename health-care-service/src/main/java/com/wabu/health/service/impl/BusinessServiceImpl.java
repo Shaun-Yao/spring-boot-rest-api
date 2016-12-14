@@ -34,7 +34,7 @@ public class BusinessServiceImpl implements BusinessService {
         final String hash = PasswordGenerator.hash(plainPassword, salt);
         business.setSalt(salt);
         business.setPassword(hash);
-		business.setCreateTime(new Date());
+		business.setCreatedAt(new Date());
 		businessRepository.save(business);
 	}
 

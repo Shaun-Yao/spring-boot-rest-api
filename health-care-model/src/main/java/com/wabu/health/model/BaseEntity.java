@@ -29,7 +29,7 @@ public abstract class BaseEntity {
 
 	@ApiParam(hidden = true)
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-	@Column(name = "CREATE_TIME", nullable = false, updatable = false)
-	protected Date createTime;// 创建时间
+	@Column(name = "CREATED_AT", nullable = false, updatable = false)
+	protected Date createdAt;// 创建时间
 
 }

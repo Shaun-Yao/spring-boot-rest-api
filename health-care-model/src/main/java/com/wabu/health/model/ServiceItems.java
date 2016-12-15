@@ -3,24 +3,32 @@ package com.wabu.health.model;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.wabu.health.enums.ServiceType;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 服务项目抽象类
+ * 服务项目
  *
  */
 @Getter
 @Setter
-@MappedSuperclass
-public abstract class ServiceItems extends BaseEntity {
+@Entity
+@Table(name = "HEALTH_SERVICE_ITEMS")
+public class ServiceItems extends BaseEntity {
+	
+	@Enumerated
+	@Column(name = "SERVICETYPE", nullable = false)
+	private ServiceType serviceType;// 服务类型
 	
 	/*
 	 * 服务地址不与Address关联，防止用户修改或者删除地址后订单收货信息出错
@@ -38,12 +46,18 @@ public abstract class ServiceItems extends BaseEntity {
 	@Column(name = "SERVICE_PACKAGE", nullable = false)
 	protected String servicePackage;// 服务套餐
 	
-	@Column(name = "DESC", nullable = false)
-	protected String desc;// 描述
+	@Column(name = "DESCRIPTION", nullable = false)
+	protected String description;// 描述
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PATIENT_ID", nullable = false)
 	protected Patient patient;
+	
+	@Column(name = "HAS_INFUSION_TOOL", nullable = false, columnDefinition = "boolean default false")
+	private boolean infusionTool = false;// 是否有输液工具
+	
+	@Column(name = "HAS_ESSENTIAL_DRUGS", nullable = false, columnDefinition = "boolean default false")
+	private boolean essentialDrugs = false;// 是否有必备药品
 	
 	@Column(name = "VALID", nullable = false, columnDefinition = "boolean default true")
 	protected Boolean valid = true;// 是否有效

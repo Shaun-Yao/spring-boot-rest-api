@@ -35,7 +35,7 @@ public class Patient extends BaseEntity {
 	
 	@Enumerated
 	@Column(name = "RELATIONSHIP", nullable = false)
-	private Relationship relationship;// 性别
+	private Relationship relationship;// 与患者关系
 	
 	@ManyToOne
     @JoinColumn(name = "CLIENT_ID", nullable = false, updatable = false)

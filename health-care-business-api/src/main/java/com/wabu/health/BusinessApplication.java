@@ -25,7 +25,7 @@ public class BusinessApplication extends SpringBootServletInitializer {
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 		TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-		factory.setPort(8080);
+		factory.setPort(9001);
 		return factory;
 	}
 	

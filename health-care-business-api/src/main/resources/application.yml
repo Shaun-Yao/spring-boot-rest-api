@@ -27,6 +27,7 @@ upload:
   webPath: upload/
 server:
   context-path: /api
+springfox.documentation.swagger.v2.path: /api-docs
 ---
 
 spring:

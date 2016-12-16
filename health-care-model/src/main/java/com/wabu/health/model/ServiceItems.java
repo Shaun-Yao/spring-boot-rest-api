@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wabu.health.enums.ServiceType;
 
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,6 +51,7 @@ public class ServiceItems extends BaseEntity {
 	@Column(name = "DESCRIPTION", nullable = false)
 	protected String description;// 描述
 
+	@ApiModelProperty(hidden = true)
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PATIENT_ID", nullable = false)
 	protected Patient patient;
@@ -59,6 +62,7 @@ public class ServiceItems extends BaseEntity {
 	@Column(name = "HAS_ESSENTIAL_DRUGS", nullable = false, columnDefinition = "boolean default false")
 	private boolean essentialDrugs = false;// 是否有必备药品
 	
+	@ApiParam(hidden = true)
 	@Column(name = "VALID", nullable = false, columnDefinition = "boolean default true")
 	protected Boolean valid = true;// 是否有效
 	

@@ -1,7 +1,5 @@
 package com.wabu.health.business.api.controller;
 
-import java.io.IOException;
-
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +51,7 @@ public class OrderController {
 	
 	/**
 	 * 商家注册
-	 * 
-	 * @param business
-	 * @throws IOException 由全局异常统一处理
+	 * @param serviceItems
 	 */
 	@ApiOperation(value = "提交订单", notes = "提交订单")
 	@RequestMapping(method = RequestMethod.POST)

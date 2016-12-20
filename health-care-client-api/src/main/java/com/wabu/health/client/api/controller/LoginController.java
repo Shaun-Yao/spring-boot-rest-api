@@ -1,4 +1,4 @@
-package com.wabu.health.business.api.controller;
+package com.wabu.health.client.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wabu.health.business.api.annotation.CurrentUser;
-import com.wabu.health.business.api.annotation.TokenRequired;
-import com.wabu.health.business.api.authorization.Token;
-import com.wabu.health.business.api.authorization.TokenManager;
-import com.wabu.health.business.api.config.ResultModel;
-import com.wabu.health.business.api.config.ResultStatus;
+import com.wabu.health.client.api.annotation.CurrentUser;
+import com.wabu.health.client.api.annotation.TokenRequired;
+import com.wabu.health.client.api.authorization.Token;
+import com.wabu.health.client.api.authorization.TokenManager;
+import com.wabu.health.client.api.config.ResultModel;
+import com.wabu.health.client.api.config.ResultStatus;
 import com.wabu.health.model.Business;
 import com.wabu.health.service.BusinessService;
 import com.wabu.health.util.PasswordGenerator;

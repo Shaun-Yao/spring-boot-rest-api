@@ -1,7 +1,5 @@
 package com.wabu.health.service.impl;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +32,6 @@ public class BusinessServiceImpl implements BusinessService {
         final String hash = PasswordGenerator.hash(plainPassword, salt);
         business.setSalt(salt);
         business.setPassword(hash);
-		business.setCreatedAt(new Date());
 		businessRepository.save(business);
 	}
 
@@ -51,12 +48,6 @@ public class BusinessServiceImpl implements BusinessService {
 	@Override
 	public Page<Business> findPage(Pageable pageable) {
 		return businessRepository.findAll(pageable);
-	}
-
-	@Override
-	@Transactional
-	public void pass(String id) {
-		businessRepository.setValidTrue(id);
 	}
 
 }

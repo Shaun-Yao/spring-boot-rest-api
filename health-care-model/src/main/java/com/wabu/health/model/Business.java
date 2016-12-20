@@ -69,6 +69,6 @@ public class Business extends BaseEntity {
 	
 
 	@ApiParam(hidden = true)
-	@Column(name = "VALID", nullable = false, columnDefinition = "boolean default false")
-	private boolean valid = false;// 是否有效
+	@Column(name = "VALID", nullable = false, columnDefinition = "boolean default true")
+	private boolean valid = true;// 是否有效
 }

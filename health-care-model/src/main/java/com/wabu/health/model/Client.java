@@ -14,7 +14,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiParam;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +24,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "HEALTH_BUSINESS")
+@Table(name = "HEALTH_CLIENT")
 public class Client extends BaseEntity {
 
 	 /**
@@ -68,7 +67,7 @@ public class Client extends BaseEntity {
 	private String name;
 	
 
-	@ApiParam(hidden = true)
-	@Column(name = "VALID", nullable = false, columnDefinition = "boolean default false")
-	private boolean valid = false;// 是否有效
+	@ApiModelProperty(hidden = true)
+	@Column(name = "VALID", nullable = false, columnDefinition = "boolean default true")
+	private boolean valid = true;// 是否有效
 }

@@ -1,4 +1,4 @@
-package com.wabu.health.business.api.controller;
+package com.wabu.health.client.api.controller;
 
 import javax.validation.Validator;
 

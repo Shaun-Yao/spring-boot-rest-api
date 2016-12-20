@@ -7,11 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,15 +21,16 @@ import lombok.Setter;
 @MappedSuperclass
 public abstract class BaseEntity {
 
-	@ApiParam(hidden = true)
+	@ApiModelProperty(hidden = true)
 	@Id @GenericGenerator(name = "generator", strategy = "uuid2")
 	@GeneratedValue(generator = "generator")
 	@Column(name = "ID", unique = true, nullable = false, length = 36)
 	protected String id;
 	
 
-	@ApiParam(hidden = true)
+	@ApiModelProperty(hidden = true)
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@CreationTimestamp
 	@Column(name = "CREATED_AT", nullable = false, updatable = false)
 	protected Date createdAt;// 创建时间
 

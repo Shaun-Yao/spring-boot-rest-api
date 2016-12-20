@@ -12,6 +12,5 @@ public interface BusinessService {
 	Business findByAccount(String account);
 	void add(Business business);
 	Page<Business> findPage(Pageable pageable);
-	void pass(String id);
 
 }

@@ -21,7 +21,7 @@ spring.redis:
   password:
   port: 6379
 logging:
-  file: F:/log/health/business/debug
+  file: F:/log/health/business-api
 upload:
   physicalPath: F:/upload/health/
   webPath: upload/

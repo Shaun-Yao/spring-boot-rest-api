@@ -1,7 +1,5 @@
 package com.wabu.health.service.impl;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,10 +28,13 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	@Transactional
 	public void add(ServiceItems serviceItems) {
+		//Date now = new Date();
+		//serviceItems.setCreatedAt(now);
+		
 		Order order = new Order();
 		order.setOrderStatus(OrderStatus.付款成功);//测试阶段直接到付款成功状态
 		order.setServiceItems(serviceItems);
-		order.setCreatedAt(new Date());
+		//order.setCreatedAt(now);
 		orderRepository.save(order);
 	}
 

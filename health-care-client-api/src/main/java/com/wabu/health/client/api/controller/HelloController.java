@@ -1,4 +1,4 @@
-package com.wabu.health.business.api.controller;
+package com.wabu.health.client.api.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HelloController {
 	
-    //@RequestMapping(value = "/", produces = "application/json; charset=UTF-8")
     @RequestMapping(value = "/")
     public String index() {
+        //return "Greetings from Spring Boot 中文 !";
     	return "test";
-        //return "Greetings from Spring Boot 中文 9001!";
     }
     
 }

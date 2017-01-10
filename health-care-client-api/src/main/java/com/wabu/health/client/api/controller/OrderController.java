@@ -1,67 +1,84 @@
 package com.wabu.health.client.api.controller;
 
+import java.util.List;
+
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wabu.health.model.ServiceItems;
+import com.wabu.health.client.api.resource.OrderResource;
+import com.wabu.health.client.api.resource.OrderResourceAssembler;
+import com.wabu.health.model.Client;
+import com.wabu.health.model.Order;
+import com.wabu.health.service.ClientService;
 import com.wabu.health.service.OrderService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = {"Order related"})//2.6.0起中文路径无法展开api
+@Api(tags = { "Order related" }) // 2.6.0起中文路径无法展开api
 @RestController
 @RequestMapping(value = "/order")
 public class OrderController {
 
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private ClientService clientService;
 
 	@Autowired
 	private Validator validator;
-	
-//	@Autowired
-//	private FileUtil fileUtil;
-	
+
+	// @Autowired
+	// private FileUtil fileUtil;
+
 	/**
 	 * 根据id查找商家
-	 * @param id 商家id
+	 * 
+	 * @param id
+	 *            商家id
 	 * @return
 	 */
-	/*@ApiOperation(value = "根据id查找商家", notes = "根据id查找商家", response = Business.class)
-//    @ApiResponses(value = {@ApiResponse(code = 404, message = "商家不存在") })
-	@ApiImplicitParam(name = "authorization", value = "授权参数", required = true, dataType = "string", paramType = "header")
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	@TokenRequired
-	public ResponseEntity<?> get(
-			@ApiParam(value = "商家id" ,required = true ) @PathVariable("id") String id) {
-		Business business = businessService.findOne(id);
-		if (business == null) {
-			return new ResponseEntity<>(ResultModel.error(ResultStatus.USER_NOT_FOUND), HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Business>(business, HttpStatus.OK);
-	}*/
-	
+	@ApiOperation(value = "查询所有订单", notes = "查询所有订单", response = Order.class)
+	@GetMapping
+	/*
+	 * public ResponseEntity<List<Order>> list() { List<Order> orders =
+	 * orderService.findAll(); return new ResponseEntity<List<Order>>(orders,
+	 * HttpStatus.OK); }
+	 */
+	public ResponseEntity<List<OrderResource>> list() {
+		List<Order> orders = orderService.findAll();
+		// orders.stream().map(mapper)
+		List<OrderResource> orderResources = new OrderResourceAssembler(this.getClass(),
+				OrderResource.class).toResources(orders);
+		return new ResponseEntity<List<OrderResource>>(orderResources, HttpStatus.OK);
+	}
+
 	/**
-	 * 商家注册
+	 * 保存订单
+	 * 
 	 * @param serviceItems
 	 */
 	@ApiOperation(value = "提交订单", notes = "提交订单")
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void add(@RequestBody ServiceItems serviceItems) {
-		
+	public void add(@RequestBody Order order) {
+
 		// 调用JSR303 Bean Validator进行校验, 异常将由RestExceptionHandler统一处理.
-		//BeanValidators.validateWithException(validator, serviceItems);
-		//order.setServiceItems(new InjectionInfusion());
-		orderService.add(serviceItems);
+		// BeanValidators.validateWithException(validator, serviceItems);
+		// order.setServiceItems(new InjectionInfusion());
+		Client currentUser = clientService.findOne("1");
+		order.setClient(currentUser);
+		orderService.add(order);
 
 	}
 

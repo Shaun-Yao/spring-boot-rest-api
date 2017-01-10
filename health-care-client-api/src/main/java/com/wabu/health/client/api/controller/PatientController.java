@@ -7,9 +7,11 @@ import javax.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,11 +39,19 @@ public class PatientController {
 	private Validator validator;
 	
 	
+	@ApiOperation(value = "根据id查找患者", notes = "根据id查找患者", response = Patient.class)
+    @GetMapping(value = "/{id}")
+	public ResponseEntity<Patient> get(@PathVariable String id) {
+		
+		Patient patient = patientService.findOne(id);
+		return new ResponseEntity<Patient>(patient, HttpStatus.OK);
+		
+	}
 	
 	@ApiOperation(value = "查询用户关联所有患者", notes = "查询用户关联所有患者", response = Patient.class)
-    //@ApiResponses(value = {@ApiResponse(code = 404, message = "商家不存在") })
+	//@ApiResponses(value = {@ApiResponse(code = 404, message = "商家不存在") })
 	//@ApiImplicitParam(name = "authorization", value = "授权参数", required = true, dataType = "string", paramType = "header")
-    @RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	//@TokenRequired
 	public ResponseEntity<List<Patient>> list() {
 		
@@ -55,7 +65,7 @@ public class PatientController {
 	 * @param patient
 	 */
 	@ApiOperation(value = "添加患者", notes = "添加患者")
-	@RequestMapping(method = RequestMethod.POST)
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public void add(@RequestBody Patient patient, @CurrentUser Client client) {
 		

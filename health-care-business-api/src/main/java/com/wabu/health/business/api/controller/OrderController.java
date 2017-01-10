@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wabu.health.model.ServiceItems;
+import com.wabu.health.model.Order;
 import com.wabu.health.service.OrderService;
 
 import io.swagger.annotations.Api;
@@ -56,12 +56,12 @@ public class OrderController {
 	@ApiOperation(value = "提交订单", notes = "提交订单")
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public void add(@RequestBody ServiceItems serviceItems) {
+	public void add(@RequestBody Order order) {
 		
 		// 调用JSR303 Bean Validator进行校验, 异常将由RestExceptionHandler统一处理.
 		//BeanValidators.validateWithException(validator, serviceItems);
 		//order.setServiceItems(new InjectionInfusion());
-		orderService.add(serviceItems);
+		orderService.add(order);
 
 	}
 

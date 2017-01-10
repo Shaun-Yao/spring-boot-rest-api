@@ -1,5 +1,7 @@
 package com.wabu.health.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wabu.health.enums.OrderStatus;
 import com.wabu.health.model.Order;
-import com.wabu.health.model.ServiceItems;
 import com.wabu.health.repository.OrderRepository;
 import com.wabu.health.service.OrderService;
 
@@ -27,14 +28,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	@Transactional
-	public void add(ServiceItems serviceItems) {
-		//Date now = new Date();
-		//serviceItems.setCreatedAt(now);
+	public void add(Order order) {
 		
-		Order order = new Order();
 		order.setOrderStatus(OrderStatus.付款成功);//测试阶段直接到付款成功状态
-		order.setServiceItems(serviceItems);
-		//order.setCreatedAt(now);
 		orderRepository.save(order);
 	}
 
@@ -47,6 +43,11 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Page<Order> findPage(Pageable pageable) {
 		return orderRepository.findAll(pageable);
+	}
+
+	@Override
+	public List<Order> findAll() {
+		return orderRepository.findAll();
 	}
 
 

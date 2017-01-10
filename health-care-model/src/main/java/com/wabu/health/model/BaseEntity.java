@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -28,8 +28,8 @@ public abstract class BaseEntity {
 	protected String id;
 	
 
-	@ApiModelProperty(hidden = true)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@JsonIgnore
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@CreationTimestamp
 	@Column(name = "CREATED_AT", nullable = false, updatable = false)
 	protected Date createdAt;// 创建时间

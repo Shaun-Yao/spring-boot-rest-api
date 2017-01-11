@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api(tags = {"Patient related"})//2.6.1中文路径无法展开api
 @RestController
-@RequestMapping(value = "/patient")
+@RequestMapping(value = "/patients")
 public class PatientController {
 
 	@Autowired

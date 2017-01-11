@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wabu.health.client.api.resource.OrderResource;
 import com.wabu.health.client.api.resource.OrderResourceAssembler;
+import com.wabu.health.enums.OrderStatus;
 import com.wabu.health.model.Client;
 import com.wabu.health.model.Order;
 import com.wabu.health.service.ClientService;
@@ -26,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api(tags = { "Order related" }) // 2.6.0起中文路径无法展开api
 @RestController
-@RequestMapping(value = "/order")
+@RequestMapping(value = "/orders")
 public class OrderController {
 
 	@Autowired
@@ -42,22 +44,26 @@ public class OrderController {
 	// private FileUtil fileUtil;
 
 	/**
-	 * 根据id查找商家
-	 * 
-	 * @param id
-	 *            商家id
+	 * 查找全部订单
 	 * @return
 	 */
-	@ApiOperation(value = "查询所有订单", notes = "查询所有订单", response = Order.class)
+	/*@ApiOperation(value = "查找全部订单单", notes = "查找全部订单", response = OrderResource.class)
 	@GetMapping
-	/*
-	 * public ResponseEntity<List<Order>> list() { List<Order> orders =
-	 * orderService.findAll(); return new ResponseEntity<List<Order>>(orders,
-	 * HttpStatus.OK); }
-	 */
 	public ResponseEntity<List<OrderResource>> list() {
 		List<Order> orders = orderService.findAll();
-		// orders.stream().map(mapper)
+		List<OrderResource> orderResources = new OrderResourceAssembler(this.getClass(),
+				OrderResource.class).toResources(orders);
+		return new ResponseEntity<List<OrderResource>>(orderResources, HttpStatus.OK);
+	}*/
+	
+	/**
+	 * 根据订单状态查找订单
+	 * @return
+	 */ 
+	@ApiOperation(value = "根据订单状态查找订单", notes = "根据订单状态查找订单", response = OrderResource.class)
+	@GetMapping
+	public ResponseEntity<List<OrderResource>> list(@RequestParam(required = false) OrderStatus status) {
+		List<Order> orders = orderService.findAll(status);
 		List<OrderResource> orderResources = new OrderResourceAssembler(this.getClass(),
 				OrderResource.class).toResources(orders);
 		return new ResponseEntity<List<OrderResource>>(orderResources, HttpStatus.OK);

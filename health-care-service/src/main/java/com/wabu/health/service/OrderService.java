@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.wabu.health.enums.OrderStatus;
 import com.wabu.health.model.Order;
 
 
@@ -15,4 +16,5 @@ public interface OrderService {
 	void update(Order order);
 	Page<Order> findPage(Pageable pageable);
 	List<Order> findAll();
+	List<Order> findAll(OrderStatus orderStatus);
 }

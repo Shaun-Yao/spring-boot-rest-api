@@ -50,5 +50,13 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findAll();
 	}
 
+	@Override
+	public List<Order> findAll(OrderStatus orderStatus) {
+		if (orderStatus == null) {
+			return orderRepository.findAll();
+		}
+		return orderRepository.findByOrderStatus(orderStatus);
+	}
+
 
 }

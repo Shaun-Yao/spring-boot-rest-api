@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api(tags = {"Address related"})
 @RestController
-@RequestMapping(value = "/address")
+@RequestMapping(value = "/addresses")
 public class AddressController {
 
 	@Autowired

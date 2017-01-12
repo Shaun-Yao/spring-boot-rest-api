@@ -1,16 +1,25 @@
 package com.wabu.health.business.api.controller;
 
+import java.util.List;
+
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wabu.health.business.api.resource.OrderResource;
+import com.wabu.health.business.api.resource.OrderResourceAssembler;
+import com.wabu.health.enums.OrderStatus;
 import com.wabu.health.model.Order;
+import com.wabu.health.service.BusinessService;
 import com.wabu.health.service.OrderService;
 
 import io.swagger.annotations.Api;
@@ -18,51 +27,58 @@ import io.swagger.annotations.ApiOperation;
 
 @Api(tags = {"Order related"})//2.6.0起中文路径无法展开api
 @RestController
-@RequestMapping(value = "/order")
+@RequestMapping(value = "/orders")
 public class OrderController {
 
 	@Autowired
 	private OrderService orderService;
 
 	@Autowired
+	private BusinessService businessService;
+	
+	@Autowired
 	private Validator validator;
 	
-//	@Autowired
-//	private FileUtil fileUtil;
-	
 	/**
-	 * 根据id查找商家
-	 * @param id 商家id
+	 * 查找需求订单
 	 * @return
-	 */
-	/*@ApiOperation(value = "根据id查找商家", notes = "根据id查找商家", response = Business.class)
-//    @ApiResponses(value = {@ApiResponse(code = 404, message = "商家不存在") })
-	@ApiImplicitParam(name = "authorization", value = "授权参数", required = true, dataType = "string", paramType = "header")
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	@TokenRequired
-	public ResponseEntity<?> get(
-			@ApiParam(value = "商家id" ,required = true ) @PathVariable("id") String id) {
-		Business business = businessService.findOne(id);
-		if (business == null) {
-			return new ResponseEntity<>(ResultModel.error(ResultStatus.USER_NOT_FOUND), HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Business>(business, HttpStatus.OK);
-	}*/
+	 */ 
+	@ApiOperation(value = "根据订单状态查找订单", notes = "商家查找需求订单status值应为2，即是付款成功状态", response = OrderResource.class)
+	@GetMapping
+	public ResponseEntity<List<OrderResource>> list(@RequestParam(required = false) OrderStatus status) {
+		List<Order> orders = orderService.findAll(status);
+		List<OrderResource> orderResources = new OrderResourceAssembler(this.getClass(),
+				OrderResource.class).toResources(orders);
+		return new ResponseEntity<List<OrderResource>>(orderResources, HttpStatus.OK);
+	}
 	
 	/**
-	 * 商家注册
-	 * @param serviceItems
-	 */
-	@ApiOperation(value = "提交订单", notes = "提交订单")
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public void add(@RequestBody Order order) {
-		
-		// 调用JSR303 Bean Validator进行校验, 异常将由RestExceptionHandler统一处理.
-		//BeanValidators.validateWithException(validator, serviceItems);
-		//order.setServiceItems(new InjectionInfusion());
-		orderService.add(order);
-
+	 * 根据id查找订单
+	 * @return
+	 */ 
+	@ApiOperation(value = "根据id查找订单", notes = "根据id查找订单", response = OrderResource.class)
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<OrderResource> get(@PathVariable String id) {
+		Order order = orderService.findOne(id);
+		OrderResource orderResource = new OrderResourceAssembler(this.getClass(),
+				OrderResource.class).toResource(order);
+		return new ResponseEntity<OrderResource>(orderResource, HttpStatus.OK);
+	}
+	
+	/**
+	 * 抢单
+	 * @return
+	 */ 
+	@ApiOperation(value = "抢单", notes = "抢单")
+	@PutMapping(value = "/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void rush(@PathVariable String id) {
+		//TODO 抢单前先判断是否已经被抢
+//		Business currentUser = businessService.findOne("1");
+//		Order order = orderService.findOne(id);
+//		order.setBusiness(currentUser);
+//		orderService.update(order);
+		orderService.rushOrder(id);
 	}
 
 }

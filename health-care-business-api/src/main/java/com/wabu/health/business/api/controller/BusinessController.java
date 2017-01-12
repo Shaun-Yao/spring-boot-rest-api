@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@Api(tags = {"商家相关"})
+@Api(tags = {"Business related"})
 @RestController
 @RequestMapping(value = "/businesses")
 public class BusinessController {

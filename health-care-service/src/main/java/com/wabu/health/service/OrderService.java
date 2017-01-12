@@ -17,4 +17,5 @@ public interface OrderService {
 	Page<Order> findPage(Pageable pageable);
 	List<Order> findAll();
 	List<Order> findAll(OrderStatus orderStatus);
+	void rushOrder(String id);
 }

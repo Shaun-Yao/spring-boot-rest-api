@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.wabu.health.enums.OrderStatus;
 import com.wabu.health.model.Order;
+import com.wabu.health.repository.BusinessRepository;
 import com.wabu.health.repository.OrderRepository;
 import com.wabu.health.service.OrderService;
 
@@ -19,7 +20,10 @@ import com.wabu.health.service.OrderService;
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
-	OrderRepository orderRepository;
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private BusinessRepository businessRepository;
 	
 	@Override
 	public Order findOne(String id) {
@@ -56,6 +60,13 @@ public class OrderServiceImpl implements OrderService {
 			return orderRepository.findAll();
 		}
 		return orderRepository.findByOrderStatus(orderStatus);
+	}
+
+	@Override
+	@Transactional
+	public void rushOrder(String id) {
+		//Business business = businessRepository.findOne("1");
+		orderRepository.updateBusiness(id, "1");
 	}
 
 

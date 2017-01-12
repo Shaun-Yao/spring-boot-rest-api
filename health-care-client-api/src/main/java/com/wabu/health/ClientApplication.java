@@ -8,6 +8,8 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -24,6 +26,7 @@ import lombok.Setter;
 @SpringBootApplication
 @ConfigurationProperties(prefix = "cors")
 @Getter @Setter
+@EnableHypermediaSupport(type= {HypermediaType.HAL})
 public class ClientApplication extends SpringBootServletInitializer {
 
 	private String allowedOrigin;//允许跨域请求的站点

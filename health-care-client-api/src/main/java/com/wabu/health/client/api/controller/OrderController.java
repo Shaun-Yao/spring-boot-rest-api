@@ -60,7 +60,7 @@ public class OrderController {
 	 * 根据订单状态查找订单
 	 * @return
 	 */ 
-	@ApiOperation(value = "根据订单状态查找订单", notes = "根据订单状态查找订单", response = OrderResource.class)
+	@ApiOperation(value = "根据订单状态查找订单", notes = "参数status值为空，或者不传则表示查询全部订单", response = OrderResource.class)
 	@GetMapping
 	public ResponseEntity<List<OrderResource>> list(@RequestParam(required = false) OrderStatus status) {
 		List<Order> orders = orderService.findAll(status);

@@ -1,7 +1,8 @@
 spring:
-  profiles.active: dev
+  profiles.active: prod
 ---
 
+#开发环境配置
 spring:
   profiles: dev
 spring.datasource:
@@ -23,37 +24,29 @@ spring.redis:
 logging:
   file: F:/log/health/business-api
 upload:
-  physicalPath: F:/upload/health/
+  physicalPath: F:/upload/loan/
   webPath: upload/
 server:
   context-path: /api
 springfox.documentation.swagger.v2.path: /api-docs
+#跨域请求设置
+cors:
+  allowed-origin: http://localhost:9000
 ---
 
+#测试环境配置
 spring:
   profiles: test
-spring.datasource:
-  url: jdbc:mysql://localhost:3306/health?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-  username: root
-  password: root
-  driver-class-name: com.mysql.jdbc.Driver
-  validationQuery: SELECT 1 FROM DUAL
-  max-wait: 10000
-  max-active: 100
-  test-on-borrow: true
-spring.jpa:
-  show-sql: true
-  hibernate.ddl-auto: update
-logging:
-  file: F:/log/loan-api/business/debug
+
 ---
 
+#生产环境配置
 spring:
   profiles: prod
 spring.datasource:
-  url: jdbc:mysql://localhost:3308/health?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+  url: jdbc:mysql://localhost:3306/health?useUnicode=true&characterEncoding=UTF-8&useSSL=false
   username: root
-  password: 
+  password: wabu2016
   driver-class-name: com.mysql.jdbc.Driver
   validationQuery: SELECT 1 FROM DUAL
   max-wait: 10000
@@ -62,7 +55,18 @@ spring.datasource:
 spring.jpa:
   show-sql: true
   hibernate.ddl-auto: update
+spring.redis:
+  host: 127.0.0.1
+  password:
+  port: 6379
 upload:
-  physicalPath: C:/upload/loan/
-  webPath: upload/    
+  physicalPath: /home/tomcat/upload/health/
+  webPath: upload/
+server:
+  context-path: /v1
+springfox.documentation.swagger.v2.path: /api-docs
+#跨域请求设置
+cors:
+  #暂未确认站点，允许所有请求
+  allowed-origin: '*'
     

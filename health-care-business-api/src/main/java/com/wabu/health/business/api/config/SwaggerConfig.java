@@ -31,8 +31,8 @@ public class SwaggerConfig {
 
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("叮叮呼钱")
-                .description("叮叮呼钱商家端API说明文档")
+                .title("医护无忧")
+                .description("医护无忧商家端API说明文档")
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .termsOfServiceUrl("")

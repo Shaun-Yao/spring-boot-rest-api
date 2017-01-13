@@ -41,12 +41,16 @@ public class OrderController {
 	
 	/**
 	 * 查找需求订单
+	 * @param status 订单状态
+	 * @param cursor 游标
+	 * @param limit 查询条数
 	 * @return
-	 */ 
+	 */
 	@ApiOperation(value = "根据订单状态查找订单", notes = "商家查找需求订单status值应为2，即是付款成功状态", response = OrderResource.class)
 	@GetMapping
-	public ResponseEntity<List<OrderResource>> list(@RequestParam(required = false) OrderStatus status) {
-		List<Order> orders = orderService.findAll(status);
+	public ResponseEntity<List<OrderResource>> list(@RequestParam(required = false) OrderStatus status,
+			@RequestParam(required = false) String cursor, @RequestParam int limit) {
+		List<Order> orders = orderService.findAll(status, cursor, limit);
 		List<OrderResource> orderResources = new OrderResourceAssembler(this.getClass(),
 				OrderResource.class).toResources(orders);
 		return new ResponseEntity<List<OrderResource>>(orderResources, HttpStatus.OK);

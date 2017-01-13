@@ -62,8 +62,9 @@ public class OrderController {
 	 */ 
 	@ApiOperation(value = "根据订单状态查找订单", notes = "参数status值为空，或者不传则表示查询全部订单", response = OrderResource.class)
 	@GetMapping
-	public ResponseEntity<List<OrderResource>> list(@RequestParam(required = false) OrderStatus status) {
-		List<Order> orders = orderService.findAll(status);
+	public ResponseEntity<List<OrderResource>> list(@RequestParam(required = false) OrderStatus status,
+			@RequestParam(required = false) String cursor, @RequestParam int limit) {
+		List<Order> orders = orderService.findAll(status, cursor, limit);
 		List<OrderResource> orderResources = new OrderResourceAssembler(this.getClass(),
 				OrderResource.class).toResources(orders);
 		return new ResponseEntity<List<OrderResource>>(orderResources, HttpStatus.OK);

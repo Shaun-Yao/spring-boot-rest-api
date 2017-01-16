@@ -1,7 +1,7 @@
 package com.wabu.health.repository;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +15,7 @@ import com.wabu.health.model.Order;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, String> {
 
-	List<Order> findByOrderStatus(OrderStatus orderStatus);
+	Page<Order> findByOrderStatus(OrderStatus orderStatus, Pageable pageable);
 
 	@Modifying
 	@Query("update Order o set o.business.id = :businessId where o.id = :id")

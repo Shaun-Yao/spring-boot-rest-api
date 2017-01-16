@@ -1,10 +1,11 @@
 package com.wabu.health.client.api.controller;
 
-import java.util.List;
-
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import com.wabu.health.service.OrderService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @Api(tags = { "Order related" }) // 2.6.0起中文路径无法展开api
 @RestController
@@ -39,6 +41,12 @@ public class OrderController {
 
 	@Autowired
 	private Validator validator;
+	
+	@Autowired
+	private PagedResourcesAssembler<Order> parAssembler;
+	
+//	@Autowired
+//	private OrderResourceAssembler orderResourceAssembler;
 
 	// @Autowired
 	// private FileUtil fileUtil;
@@ -62,12 +70,12 @@ public class OrderController {
 	 */ 
 	@ApiOperation(value = "根据订单状态查找订单", notes = "参数status值为空，或者不传则表示查询全部订单", response = OrderResource.class)
 	@GetMapping
-	public ResponseEntity<List<OrderResource>> list(@RequestParam(required = false) OrderStatus status,
-			@RequestParam(required = false) String cursor, @RequestParam int limit) {
-		List<Order> orders = orderService.findAll(status, cursor, limit);
-		List<OrderResource> orderResources = new OrderResourceAssembler(this.getClass(),
-				OrderResource.class).toResources(orders);
-		return new ResponseEntity<List<OrderResource>>(orderResources, HttpStatus.OK);
+	public ResponseEntity<PagedResources<OrderResource>> list(@RequestParam(required = false) OrderStatus status,
+			@ApiParam(value = "页码, 从0开始", required = true, defaultValue = "1") @RequestParam int page, 
+			@ApiParam(value = "每页记录条数", required = true, defaultValue = "10")@RequestParam int size) {
+		Page<Order> orders = orderService.findAll(status, page, size);
+		OrderResourceAssembler orderResourceAssembler = new OrderResourceAssembler(this.getClass(), OrderResource.class);
+		return new ResponseEntity<>(parAssembler.toResource(orders, orderResourceAssembler), HttpStatus.OK);
 	}
 
 	/**

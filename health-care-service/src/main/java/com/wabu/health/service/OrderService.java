@@ -16,6 +16,6 @@ public interface OrderService {
 	void update(Order order);
 	Page<Order> findPage(Pageable pageable);
 	List<Order> findAll();
-	List<Order> findAll(OrderStatus status, String cursor, int limit);
+	Page<Order> findAll(OrderStatus status, int page, int size);
 	void rushOrder(String id);
 }

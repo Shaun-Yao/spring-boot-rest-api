@@ -2,7 +2,6 @@ package com.wabu.health.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,17 +56,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> findAll(OrderStatus status, String cursor, int limit) {
+	public Page<Order> findAll(OrderStatus status, int page, int size) {
+		Pageable pageable = new PageRequest(page, size);
 		if (status == null) {//无状态表示查询全部订单
-			if (StringUtils.isBlank(cursor)) {//无游标表示首次加载
-				Page<Order> orderPage =  orderRepository.findAll(new PageRequest(0, limit));
-			} else {
-				
-			}
-			return orderRepository.findAll();
+			return orderRepository.findAll(pageable);
 		}
 		
-		return orderRepository.findByOrderStatus(status);
+		return orderRepository.findByOrderStatus(status, pageable);
 	}
 
 	@Override

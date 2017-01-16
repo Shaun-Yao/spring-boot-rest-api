@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,11 +50,13 @@ public class OrderController {
 	@ApiOperation(value = "根据订单状态查找订单", notes = "商家查找需求订单status值应为2，即是付款成功状态", response = OrderResource.class)
 	@GetMapping
 	public ResponseEntity<List<OrderResource>> list(@RequestParam(required = false) OrderStatus status,
-			@RequestParam(required = false) String cursor, @RequestParam int limit) {
-		List<Order> orders = orderService.findAll(status, cursor, limit);
-		List<OrderResource> orderResources = new OrderResourceAssembler(this.getClass(),
-				OrderResource.class).toResources(orders);
-		return new ResponseEntity<List<OrderResource>>(orderResources, HttpStatus.OK);
+			@RequestParam(required = false) String cursor, @RequestParam int limit,
+			Pageable pageable) {
+//		List<Order> orders = orderService.findAll(status, cursor, limit, pageable);
+//		List<OrderResource> orderResources = new OrderResourceAssembler(this.getClass(),
+//				OrderResource.class).toResources(orders);
+//		return new ResponseEntity<List<OrderResource>>(orderResources, HttpStatus.OK);
+		return null;
 	}
 	
 	/**

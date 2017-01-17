@@ -1,5 +1,5 @@
 spring:
-  profiles.active: prod
+  profiles.active: dev
 ---
 
 #开发环境配置

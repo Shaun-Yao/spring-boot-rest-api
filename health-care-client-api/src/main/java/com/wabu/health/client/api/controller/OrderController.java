@@ -68,12 +68,14 @@ public class OrderController {
 	 * 根据订单状态查找订单
 	 * @return
 	 */ 
-	@ApiOperation(value = "根据订单状态查找订单", notes = "参数status值为空，或者不传则表示查询全部订单", response = OrderResource.class)
+	@ApiOperation(value = "根据订单状态查找订单", notes = "参数status值为空，或者不传则表示查询全部订单", response = PagedResources.class)
 	@GetMapping
 	public ResponseEntity<PagedResources<OrderResource>> list(@RequestParam(required = false) OrderStatus status,
-			@ApiParam(value = "页码, 从0开始", required = true, defaultValue = "1") @RequestParam int page, 
-			@ApiParam(value = "每页记录条数", required = true, defaultValue = "10")@RequestParam int size) {
-		Page<Order> orders = orderService.findAll(status, page, size);
+			@ApiParam(value = "页码, 从1开始", required = true, defaultValue = "1") @RequestParam int page, 
+			@ApiParam(value = "每页记录条数", required = true, defaultValue = "10")@RequestParam int size,
+			@ApiParam(value = "排序字段,多字段以\",\"号隔开，\"-\"号表示降序，默认为升序", 
+			required = true, defaultValue = "serviceTime,-servicePackage") @RequestParam String sort) {
+		Page<Order> orders = orderService.findAll(status, page, size, sort);
 		OrderResourceAssembler orderResourceAssembler = new OrderResourceAssembler(this.getClass(), OrderResource.class);
 		return new ResponseEntity<>(parAssembler.toResource(orders, orderResourceAssembler), HttpStatus.OK);
 	}

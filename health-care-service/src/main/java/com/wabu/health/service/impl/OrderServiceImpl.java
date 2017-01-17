@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import com.wabu.health.model.Order;
 import com.wabu.health.repository.BusinessRepository;
 import com.wabu.health.repository.OrderRepository;
 import com.wabu.health.service.OrderService;
+import com.wabu.health.util.JpaUtil;
 
 
 
@@ -56,8 +58,12 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Page<Order> findAll(OrderStatus status, int page, int size) {
-		Pageable pageable = new PageRequest(page, size);
+	public Page<Order> findAll(OrderStatus status, int page, int size, String sort) {
+		
+		Sort sortObj = new Sort(JpaUtil.pareseSort(sort));
+		//page从0开始，前端传参从1开始，所以要减掉1
+		Pageable pageable = new PageRequest(page - 1, size, sortObj);
+		
 		if (status == null) {//无状态表示查询全部订单
 			return orderRepository.findAll(pageable);
 		}

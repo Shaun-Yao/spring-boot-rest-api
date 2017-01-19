@@ -39,7 +39,7 @@ public class PatientController {
 	private Validator validator;
 	
 	
-	@ApiOperation(value = "根据id查找患者", notes = "根据id查找患者", response = Patient.class)
+	@ApiOperation(value = "根据id查找患者", notes = "根据id查找患者")
     @GetMapping(value = "/{id}")
 	public ResponseEntity<Patient> get(@PathVariable String id) {
 		
@@ -48,7 +48,7 @@ public class PatientController {
 		
 	}
 	
-	@ApiOperation(value = "查询用户关联所有患者", notes = "查询用户关联所有患者", response = Patient.class)
+	@ApiOperation(value = "查询用户关联所有患者", notes = "查询用户关联所有患者")
 	//@ApiResponses(value = {@ApiResponse(code = 404, message = "商家不存在") })
 	//@ApiImplicitParam(name = "authorization", value = "授权参数", required = true, dataType = "string", paramType = "header")
 	@GetMapping

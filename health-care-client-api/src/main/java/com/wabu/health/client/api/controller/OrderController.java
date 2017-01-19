@@ -45,30 +45,12 @@ public class OrderController {
 	@Autowired
 	private PagedResourcesAssembler<Order> parAssembler;
 	
-//	@Autowired
-//	private OrderResourceAssembler orderResourceAssembler;
-
-	// @Autowired
-	// private FileUtil fileUtil;
-
-	/**
-	 * 查找全部订单
-	 * @return
-	 */
-	/*@ApiOperation(value = "查找全部订单单", notes = "查找全部订单", response = OrderResource.class)
-	@GetMapping
-	public ResponseEntity<List<OrderResource>> list() {
-		List<Order> orders = orderService.findAll();
-		List<OrderResource> orderResources = new OrderResourceAssembler(this.getClass(),
-				OrderResource.class).toResources(orders);
-		return new ResponseEntity<List<OrderResource>>(orderResources, HttpStatus.OK);
-	}*/
 	
 	/**
 	 * 根据订单状态查找订单
 	 * @return
 	 */ 
-	@ApiOperation(value = "根据订单状态查找订单", notes = "参数status值为空，或者不传则表示查询全部订单", response = PagedResources.class)
+	@ApiOperation(value = "根据订单状态查找订单", notes = "参数status值为空，或者不传则表示查询全部订单")
 	@GetMapping
 	public ResponseEntity<PagedResources<OrderResource>> list(@RequestParam(required = false) OrderStatus status,
 			@ApiParam(value = "页码, 从1开始", required = true, defaultValue = "1") @RequestParam int page, 

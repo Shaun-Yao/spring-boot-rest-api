@@ -51,7 +51,7 @@ public class OrderController {
 	 * @param limit 查询条数
 	 * @return
 	 */
-	@ApiOperation(value = "查找需求订单", notes = "查找需求订单", response = PagedResources.class)
+	@ApiOperation(value = "查找需求订单", notes = "查找需求订单")
 	@GetMapping
 	public ResponseEntity<PagedResources<OrderResource>> list(
 			@ApiParam(value = "页码, 从1开始", required = true, defaultValue = "1") @RequestParam int page, 
@@ -68,7 +68,7 @@ public class OrderController {
 	 * 根据id查找订单
 	 * @return
 	 */ 
-	@ApiOperation(value = "根据id查找订单", notes = "根据id查找订单", response = OrderResource.class)
+	@ApiOperation(value = "根据id查找订单", notes = "根据id查找订单")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<OrderResource> get(@PathVariable String id) {
 		Order order = orderService.findOne(id);

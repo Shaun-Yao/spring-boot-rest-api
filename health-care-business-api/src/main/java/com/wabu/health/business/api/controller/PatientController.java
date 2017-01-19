@@ -28,7 +28,7 @@ public class PatientController {
 	private Validator validator;
 	
 	
-	@ApiOperation(value = "根据id查找患者", notes = "根据id查找患者", response = Patient.class)
+	@ApiOperation(value = "根据id查找患者", notes = "根据id查找患者")
     @GetMapping(value = "/{id}")
 	public ResponseEntity<Patient> get(@PathVariable String id) {
 		

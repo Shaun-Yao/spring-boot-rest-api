@@ -21,6 +21,7 @@ import lombok.Setter;
 @MappedSuperclass
 public abstract class BaseEntity {
 
+
 	@ApiModelProperty(hidden = true)
 	@Id @GenericGenerator(name = "generator", strategy = "uuid2")
 	@GeneratedValue(generator = "generator")

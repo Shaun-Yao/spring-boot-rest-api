@@ -39,7 +39,7 @@ public class AddressController {
 	
 	
 	
-	@ApiOperation(value = "查询用户关联所有地址", notes = "查询用户关联所有地址", response = Address.class)
+	@ApiOperation(value = "查询用户关联所有地址", notes = "查询用户关联所有地址")
     //@ApiResponses(value = {@ApiResponse(code = 404, message = "商家不存在") })
 	//@ApiImplicitParam(name = "authorization", value = "授权参数", required = true, dataType = "string", paramType = "header")
     @RequestMapping(method = RequestMethod.GET)

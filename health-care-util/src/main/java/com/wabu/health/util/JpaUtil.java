@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort.Order;
 
 public class JpaUtil {
 
+    private JpaUtil() {}
+    
 	/**
 	 * 解析排序字段
 	 * @param sort 例如 "id,-createdAt"

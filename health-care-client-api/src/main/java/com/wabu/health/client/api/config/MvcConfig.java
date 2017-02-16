@@ -38,6 +38,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         argumentResolvers.add(currentUserMethodArgumentResolver);
     }
     
+    
     @Bean
 	public Validator validator() {
 		return new LocalValidatorFactoryBean();

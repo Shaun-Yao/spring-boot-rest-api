@@ -25,6 +25,8 @@ import javax.validation.Validator;
  */
 public class BeanValidators {
 
+    private BeanValidators() {}
+    
 	/**
 	 * 调用JSR303的validate方法, 验证失败时抛出ConstraintViolationException, 而不是返回constraintViolations.
 	 */

@@ -18,7 +18,9 @@ import lombok.Setter;
 @Setter
 @ConfigurationProperties(prefix = "upload")
 public class FileUtil {
-
+    
+    private FileUtil() {}
+    
 	private String physicalPath;//上传文件存储物理路径
 	private String webPath;//上传文件存web访问路径
 	

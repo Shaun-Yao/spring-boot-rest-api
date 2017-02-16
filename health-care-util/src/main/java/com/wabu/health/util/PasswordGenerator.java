@@ -19,6 +19,9 @@ import com.wabu.health.util.PassWordUtil.PasswordStrength;
  * @author yao
  */
 public class PasswordGenerator {
+    
+    private PasswordGenerator() {}
+    
     /**
      * @return 一个新的随机密码
      */
